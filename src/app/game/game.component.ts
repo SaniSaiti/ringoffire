@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/models/game';
+import {MatDialog} from '@angular/material/dialog';
+import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
+
 
 @Component({
   selector: 'app-game',
@@ -8,10 +11,10 @@ import { Game } from 'src/models/game';
 })
 export class GameComponent implements OnInit {
   pickCardAnimation = false;
-  currentCard: any = ''; // musste das zu any wechseln wieso geht nicht mit string
-  game: Game = new Game;  // nur game = Game geht nicht wieso?
+  currentCard: any = '';   // | undefined antwort musste das zu any wechseln wieso geht nicht mit string
+  game = new Game;  // antwort: game = new Game // nur game = Game geht nicht wieso?
  
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.newGame();
@@ -31,12 +34,29 @@ export class GameComponent implements OnInit {
       console.log('New Card: '+ this.currentCard)
       console.log('Game is ',this.game)
     
+      this.game.currentPlayer++;
+      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length
+
+      console.log('Currentplayer nr: ',this.game.currentPlayer)
       setTimeout(() => {
-        this.game.playedCards.push(this.currentCard);
+        this.game.playedCards.push(this.currentCard); // as string
         this.pickCardAnimation = false;
       }, 1000);
     }
  
+  }
+
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogAddPlayerComponent);
+    
+
+    dialogRef.afterClosed().subscribe((name: string) => {
+      if(name && name.length > 0){
+      this.game.players.push(name)
+   
+      }
+    });
   }
 
 }
