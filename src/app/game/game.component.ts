@@ -11,8 +11,8 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
 })
 export class GameComponent implements OnInit {
   pickCardAnimation = false;
-  currentCard: any = '';   // | undefined antwort musste das zu any wechseln wieso geht nicht mit string
-  game = new Game;  // antwort: game = new Game // nur game = Game geht nicht wieso?
+  currentCard: any = '';   // | undefined 
+  game = new Game;  
  
   constructor(public dialog: MatDialog) { }
 
