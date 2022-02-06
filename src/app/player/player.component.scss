@@ -7,6 +7,9 @@
     span {
         font-size: 32px;
         margin-left: 16px;
+        text-overflow: ellipsis; // Versuch 
+        white-space: nowrap; // Versuch
+        //overflow: hidden; // Versuch
     }
     background-color: rgb(223, 220, 215);
     img {
